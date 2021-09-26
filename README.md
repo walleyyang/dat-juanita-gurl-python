@@ -8,7 +8,7 @@ Install libraries `pip install -r requirements.txt`.
 
 ## Docker Build
 
-You can also build the Docker image. For example, run `docker build . -t datjuanitagurl/datjuanitagurl` to build the image. Then run `docker container run datjuanitagurl/datjuanitagurl:latest` to run it.
+You can also build the Docker image. For example, run `docker build . -t datjuanitagurl/datjuanitagurl` to build the image. Then run `docker run --env-file ./.env datjuanitagurl/datjuanitagurl:latest` to run it.
 
 ## Full Application Usage
 
