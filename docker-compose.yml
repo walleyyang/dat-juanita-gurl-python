@@ -20,3 +20,5 @@ services:
       - 'OWL_FILTERS:$OWL_FILTERS'
       - 'OWL_FILTER_AA:$OWL_FILTER_AA'
       - 'OWL_FILTER_AAA:$OWL_FILTER_AAA'
+    depends_on:
+      - datjuanitagurl

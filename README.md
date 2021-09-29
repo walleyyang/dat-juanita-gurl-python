@@ -6,6 +6,8 @@ You will need to create a `.env` file to connect to the correct website. See `.e
 
 Install libraries `pip install -r requirements.txt`.
 
+This uses the `autopep8` formatter.
+
 ## Docker Build
 
 You can also build the Docker image. For example, run `docker build . -t datjuanitagurl/datjuanitagurl` to build the image. Then run `docker run --env-file ./.env datjuanitagurl/datjuanitagurl:latest` to run it.
