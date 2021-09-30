@@ -1,5 +1,5 @@
 BOT_TOKEN=123
-GUILD=123
+GUILD_ID=123
 
 BAD_BUG=https://duckduckgo.com
 BAD_BUG_USERNAME=user

@@ -6,7 +6,7 @@ services:
       - 8080:8080
     environment:
       - 'BOT_TOKEN:$BOT_TOKEN'
-      - 'GUILD:$GUILD'
+      - 'GUILD_ID:$GUILD_ID'
 
   badbug:
     image: datjuanitagurl/bad-bug:latest
@@ -20,5 +20,7 @@ services:
       - 'OWL_FILTERS:$OWL_FILTERS'
       - 'OWL_FILTER_AA:$OWL_FILTER_AA'
       - 'OWL_FILTER_AAA:$OWL_FILTER_AAA'
+      - 'WEBSOCKET_URL:$WEBSOCKET_URL'
+      - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
     depends_on:
       - datjuanitagurl

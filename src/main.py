@@ -10,7 +10,9 @@ from ServerChannel import ServerChannel
 
 load_dotenv()
 
-GUILD = getenv('GUILD')
+GUILD_ID = getenv('GUILD_ID')
+CHANNEL_FLOW = getenv('CHANNEL_FLOW')
+CHANNEL_GOLDEN_SWEEP = getenv('CHANNEL_GOLDEN_SWEEP')
 
 WEBSOCKET_URL = getenv('WEBSOCKET_URL')
 WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
@@ -46,13 +48,18 @@ async def send_message(message):
     details = message['details']
     type = message['type']
     value = message['value']
+    estimated_value = message['estimatedValue']
+    golden_sweep = message['goldenSweep']
 
     embed_color = None
 
-    if message['position'] == 'PUT':
+    if golden_sweep:
+        embed_color = 0xF7B718
+    elif message['position'] == 'PUT':
         embed_color = 0xD32915
     else:
         embed_color = 0x15D33D
+
     embed = discord.Embed(
         title=symbol,
         color=embed_color,
@@ -67,7 +74,11 @@ async def send_message(message):
     embed.add_field(name='Time', value=time, inline=True)
     embed.add_field(name='Expiration', value=expiration, inline=True)
 
-    await discord_client.get_channel(889609837107884052).send(embed=embed)
+    if (golden_sweep):
+        await discord_client.get_channel(CHANNEL_GOLDEN_SWEEP).send(embed=embed)
+    else:
+        await discord_client.get_channel(CHANNEL_FLOW).send(embed=embed)
+
 
 websocket_server = websockets.serve(handler, WEBSOCKET_URL, WEBSOCKET_PORT)
 
@@ -75,6 +86,11 @@ asyncio.get_event_loop().run_until_complete(websocket_server)
 # Discord runs this forever so its not needed for WebSockets
 # asyncio.get_event_loop().run_forever()
 
+
+# @discord_client.event
+# async def on_ready():
+#     for guild in discord_client.guilds:
+#         print(guild.name)
 
 # @discord_client.event
 # async def on_ready():
