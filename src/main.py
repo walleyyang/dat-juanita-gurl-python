@@ -10,9 +10,8 @@ from ServerChannel import ServerChannel
 
 load_dotenv()
 
-GUILD_ID = getenv('GUILD_ID')
-CHANNEL_FLOW = getenv('CHANNEL_FLOW')
-CHANNEL_GOLDEN_SWEEP = getenv('CHANNEL_GOLDEN_SWEEP')
+CHANNEL_FLOW = int(getenv('CHANNEL_FLOW'))
+CHANNEL_GOLDEN_SWEEP = int(getenv('CHANNEL_GOLDEN_SWEEP'))
 
 WEBSOCKET_URL = getenv('WEBSOCKET_URL')
 WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
@@ -48,8 +47,8 @@ async def send_message(message):
     details = message['details']
     type = message['type']
     value = message['value']
-    estimated_value = message['estimatedValue']
     golden_sweep = message['goldenSweep']
+    sentiment = message['sentiment']
 
     embed_color = None
 
@@ -74,6 +73,13 @@ async def send_message(message):
     embed.add_field(name='Time', value=time, inline=True)
     embed.add_field(name='Expiration', value=expiration, inline=True)
 
+    if (sentiment == 'BULLISH'):
+        embed.set_footer(
+            icon_url="https://i.imgur.com/GobRl44.png", text='Bullish')
+    else:
+        embed.set_footer(
+            icon_url="https://i.imgur.com/OWXP4Yv.png", text='Bearish')
+
     if (golden_sweep):
         await discord_client.get_channel(CHANNEL_GOLDEN_SWEEP).send(embed=embed)
     else:
@@ -86,25 +92,9 @@ asyncio.get_event_loop().run_until_complete(websocket_server)
 # Discord runs this forever so its not needed for WebSockets
 # asyncio.get_event_loop().run_forever()
 
-
 # @discord_client.event
 # async def on_ready():
-#     for guild in discord_client.guilds:
-#         print(guild.name)
-
-# @discord_client.event
-# async def on_ready():
-#     global channel
-
-#     if not channel:
-#         print('[on_ready] getting discord channel:', 889609837107884052)
-#         channel = discord_client.get_channel(
-#             889609837107884052)  # access to channel
-
-#     if not channel:
-#         print("[on_ready] can't access channel:", 889609837107884052)
-#     else:
-#         print('[on_ready] channel:', channel)
+#    test stuff
 
 
 if __name__ == '__main__':
