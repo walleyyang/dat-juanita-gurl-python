@@ -6,7 +6,10 @@ services:
       - 8080:8080
     environment:
       - 'BOT_TOKEN:$BOT_TOKEN'
-      - 'GUILD_ID:$GUILD_ID'
+      - 'CHANNEL_FLOW:$CHANNEL_FLOW'
+      - 'CHANNEL_GOLDEN_SWEEP:$CHANNEL_GOLDEN_SWEEP'
+      - 'WEBSOCKET_URL:$WEBSOCKET_URL'
+      - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
 
   badbug:
     image: datjuanitagurl/bad-bug:latest
