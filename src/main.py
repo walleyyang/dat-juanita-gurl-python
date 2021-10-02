@@ -29,10 +29,12 @@ async def handle_message(message):
 
 
 async def send_message(channel, embed):
-    if(channel == constants.GOLDEN_SWEEPS):
-        await discord_client.get_channel(CHANNEL_GOLDEN_SWEEP).send(embed=embed)
+    if(channel == constants.CHANNEL_NAME_FLOW):
+        await discord_client.get_channel(CHANNEL_ID_FLOW).send(embed=embed)
+    elif(channel == constants.CHANNEL_NAME_GOLDEN_SWEEPS):
+        await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(embed=embed)
     else:
-        await discord_client.get_channel(CHANNEL_FLOW).send(embed=embed)
+        await discord_client.get_channel(CHANNEL_ID_ALERTS).send(embed=embed)
 
 
 def create_embed(message):
@@ -53,8 +55,9 @@ def create_embed(message):
 if __name__ == '__main__':
     load_dotenv()
 
-    CHANNEL_FLOW = int(getenv('CHANNEL_FLOW'))
-    CHANNEL_GOLDEN_SWEEP = int(getenv('CHANNEL_GOLDEN_SWEEP'))
+    CHANNEL_ID_ALERTS = int(getenv('CHANNEL_ID_ALERTS'))
+    CHANNEL_ID_FLOW = int(getenv('CHANNEL_ID_FLOW'))
+    CHANNEL_ID_GOLDEN_SWEEP = int(getenv('CHANNEL_ID_GOLDEN_SWEEP'))
 
     WEBSOCKET_URL = getenv('WEBSOCKET_URL')
     WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
