@@ -1,3 +1,12 @@
-FLOW = 'flow'
-GOLDEN_SWEEPS = 'golden-sweeps'
-ALERTS = 'alerts'
+# Channels
+CHANNEL_NAME_ALERTS = 'alerts'
+CHANNEL_NAME_FLOW = 'flow'
+CHANNEL_NAME_GOLDEN_SWEEPS = 'golden-sweeps'
+
+# Message Types
+MESSAGE_TYPE_ALERT = 'ALERT'
+MESSAGE_TYPE_FLOW = 'FLOW'
+
+# Sentiment
+SENTIMENT_BULLISH = 'BULLISH'
+SENTIMENT_BEARISH = 'BEARISH'
