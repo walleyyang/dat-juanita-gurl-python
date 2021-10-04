@@ -4,18 +4,22 @@ services:
     image: datjuanitagurl/datjuanitagurl:latest
     ports:
       - 8080:8080
+    env_file:
+      - .env
     environment:
       - 'BOT_TOKEN:$BOT_TOKEN'
       - 'CHANNEL_ID_ALERTS:$CHANNEL_ID_ALERTS'
-      - 'CHANNEL_ID_FLOW:$CHANNEL_FLOW'
-      - 'CHANNEL_ID_GOLDEN_SWEEP:$CHANNEL_GOLDEN_SWEEP'
+      - 'CHANNEL_ID_FLOW:$CHANNEL_ID_FLOW'
+      - 'CHANNEL_ID_GOLDEN_SWEEP:$CHANNEL_ID_GOLDEN_SWEEP'
       - 'WEBSOCKET_URL:$WEBSOCKET_URL'
       - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
 
   badbug:
     image: datjuanitagurl/bad-bug:latest
     ports:
-      - 8081:8081
+      - 8081:8080
+    env_file:
+      - .env
     environment:
       - 'BAD_BUG:$BAD_BUG'
       - 'BAD_BUG_USERNAME:$BAD_BUG_USERNAME'
