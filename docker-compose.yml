@@ -21,11 +21,13 @@ services:
     env_file:
       - .env
     environment:
+      - 'MODE:$MODE'
       - 'BAD_BUG:$BAD_BUG'
       - 'BAD_BUG_USERNAME:$BAD_BUG_USERNAME'
       - 'BAD_BUG_PASSWORD:$BAD_BUG_PASSWORD'
       - 'OWL_FLOW:$OWL_FLOW'
       - 'OWL_ALERT:$OWL_ALERT'
+      - 'OWL_ALERT_BTN:$OWL_ALERT_BTN'
       - 'OWL_FILTER:$OWL_FILTER'
       - 'OWL_FILTERS:$OWL_FILTERS'
       - 'OWL_FILTER_AA:$OWL_FILTER_AA'
