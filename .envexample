@@ -10,7 +10,9 @@ CHANNEL_ID_FLOW=123
 CHANNEL_ID_GOLDEN_SWEEP=123
 
 #### Bad-Bug ####
+MODE=PROD
 BAD_BUG=https://duckduckgo.com
+BAD_BUG_ALERTS=https://duckduckgo.com
 BAD_BUG_USERNAME=user
 BAD_BUG_PASSWORD=password
 # BAD_BUG=http://host.docker.internal:3000 # Test external container localhost
@@ -18,6 +20,7 @@ BAD_BUG_PASSWORD=password
 # May have to surround values with quotes for special characters
 OWL_FLOW='helloworld'
 OWL_ALERT='helloworld'
+OWL_ALERT_BTN='helloworld'
 
 # Filters
 OWL_FILTER='helloworld'
