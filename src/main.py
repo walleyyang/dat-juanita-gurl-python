@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from os import getenv
 
 import constants
-from scripts import bad_bug
+from modules import bad_bug
 
 
 async def handler(websocket, path):
@@ -24,20 +24,25 @@ async def handler(websocket, path):
 
 async def handle_message(message):
     bad_bug_message = bad_bug.handle_message(message)
-    embed = create_embed(bad_bug_message)
-    await send_message(bad_bug_message['channel'], embed)
+    symbol = bad_bug.get_symbol(message)
+    embed = get_embed(bad_bug_message)
+    await send_message(bad_bug_message['channel'], embed, symbol)
 
 
-async def send_message(channel, embed):
+async def send_message(channel, embed, symbol):
     if(channel == constants.CHANNEL_NAME_FLOW):
         await discord_client.get_channel(CHANNEL_ID_FLOW).send(embed=embed)
     elif(channel == constants.CHANNEL_NAME_GOLDEN_SWEEPS):
         await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(embed=embed)
+        if NEWSFILTERIO_ON == 'True':
+            await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(f'.news {symbol} {MAX_NEWS}')
     else:
         await discord_client.get_channel(CHANNEL_ID_ALERTS).send(embed=embed)
+        if NEWSFILTERIO_ON == 'True':
+            await discord_client.get_channel(CHANNEL_ID_ALERTS).send(f'.news {symbol} {MAX_NEWS}')
 
 
-def create_embed(message):
+def get_embed(message):
     embed = discord.Embed(
         title=message['embed_title'],
         color=message['embed_color']
@@ -58,6 +63,9 @@ if __name__ == '__main__':
     CHANNEL_ID_ALERTS = int(getenv('CHANNEL_ID_ALERTS'))
     CHANNEL_ID_FLOW = int(getenv('CHANNEL_ID_FLOW'))
     CHANNEL_ID_GOLDEN_SWEEP = int(getenv('CHANNEL_ID_GOLDEN_SWEEP'))
+
+    NEWSFILTERIO_ON = getenv('NEWSFILTERIO_ON')
+    MAX_NEWS = 2
 
     WEBSOCKET_URL = getenv('WEBSOCKET_URL')
     WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
