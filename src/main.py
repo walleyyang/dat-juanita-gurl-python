@@ -34,12 +34,8 @@ async def send_message(channel, embed, symbol):
         await discord_client.get_channel(CHANNEL_ID_FLOW).send(embed=embed)
     elif(channel == constants.CHANNEL_NAME_GOLDEN_SWEEPS):
         await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(embed=embed)
-        if NEWSFILTERIO_ON == 'True':
-            await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(f'.news {symbol} {MAX_NEWS}')
     else:
         await discord_client.get_channel(CHANNEL_ID_ALERTS).send(embed=embed)
-        if NEWSFILTERIO_ON == 'True':
-            await discord_client.get_channel(CHANNEL_ID_ALERTS).send(f'.news {symbol} {MAX_NEWS}')
 
 
 def get_embed(message):
@@ -63,9 +59,6 @@ if __name__ == '__main__':
     CHANNEL_ID_ALERTS = int(getenv('CHANNEL_ID_ALERTS'))
     CHANNEL_ID_FLOW = int(getenv('CHANNEL_ID_FLOW'))
     CHANNEL_ID_GOLDEN_SWEEP = int(getenv('CHANNEL_ID_GOLDEN_SWEEP'))
-
-    NEWSFILTERIO_ON = getenv('NEWSFILTERIO_ON')
-    MAX_NEWS = 2
 
     WEBSOCKET_URL = getenv('WEBSOCKET_URL')
     WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
