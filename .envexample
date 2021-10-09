@@ -9,6 +9,8 @@ CHANNEL_ID_ALERTS=123
 CHANNEL_ID_FLOW=123
 CHANNEL_ID_GOLDEN_SWEEP=123
 
+NEWSFILTERIO_ON=True
+
 #### Bad-Bug ####
 MODE=PROD
 BAD_BUG=https://duckduckgo.com
@@ -27,6 +29,3 @@ OWL_FILTER='helloworld'
 OWL_FILTERS='helloworld'
 OWL_FILTER_AA='helloworld'
 OWL_FILTER_AAA='helloworld'
-
-#### Fat-Vamp ####
-FAT_VAMP=http://duckduckgo.com

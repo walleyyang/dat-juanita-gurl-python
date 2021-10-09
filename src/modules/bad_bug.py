@@ -5,7 +5,7 @@ sys.path.append('..src')
 
 def handle_message(message):
     message_type = message['messageType']
-    embed_title = message['symbol']
+    embed_title = get_symbol(message)
     embed_fields = None
 
     if (message_type == constants.MESSAGE_TYPE_ALERT):
@@ -21,6 +21,10 @@ def handle_message(message):
         'embed_fields':  embed_fields,
         'embed_footer': get_embed_footer(message)
     }
+
+
+def get_symbol(message):
+    return message['symbol']
 
 
 def get_channel(message):
