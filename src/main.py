@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from os import getenv
 
 import constants
-from modules import bad_bug
+from modules import bad_bug, fat_vamp
 
 
 async def handler(websocket, path):
@@ -24,12 +24,12 @@ async def handler(websocket, path):
 
 async def handle_message(message):
     bad_bug_message = bad_bug.handle_message(message)
-    symbol = bad_bug.get_symbol(message)
-    embed = get_embed(bad_bug_message)
-    await send_message(bad_bug_message['channel'], embed, symbol)
+    news = get_news(bad_bug.get_symbol(message))
+    embed = get_embed(bad_bug_message, news)
+    await send_message(bad_bug_message['channel'], embed)
 
 
-async def send_message(channel, embed, symbol):
+async def send_message(channel, embed):
     if(channel == constants.CHANNEL_NAME_FLOW):
         await discord_client.get_channel(CHANNEL_ID_FLOW).send(embed=embed)
     elif(channel == constants.CHANNEL_NAME_GOLDEN_SWEEPS):
@@ -38,7 +38,11 @@ async def send_message(channel, embed, symbol):
         await discord_client.get_channel(CHANNEL_ID_ALERTS).send(embed=embed)
 
 
-def get_embed(message):
+def get_news(symbol):
+    return fat_vamp.get_news(f'{FAT_VAMP}{symbol}')
+
+
+def get_embed(message, news):
     embed = discord.Embed(
         title=message['embed_title'],
         color=message['embed_color']
@@ -47,10 +51,27 @@ def get_embed(message):
     for i in message['embed_fields']:
         embed.add_field(name=i['name'], value=i['value'], inline=i['inline'])
 
+    embed.add_field(
+        name='News', value=get_embed_news_field(news), inline='False')
+
     embed.set_footer(icon_url=message['embed_footer']
                      ['icon_url'], text=message['embed_footer']['text'])
 
     return embed
+
+
+def get_embed_news_field(news):
+    news_field = ''
+
+    if news[0] == constants.NO_NEWS:
+        news_field = constants.NO_NEWS
+    else:
+        for n in news:
+            text = n['text']
+            link = n['link']
+            news_field += f'* [{text}]({link})\n'
+
+    return news_field
 
 
 if __name__ == '__main__':
@@ -62,6 +83,8 @@ if __name__ == '__main__':
 
     WEBSOCKET_URL = getenv('WEBSOCKET_URL')
     WEBSOCKET_PORT = getenv('WEBSOCKET_PORT')
+
+    FAT_VAMP = getenv('FAT_VAMP')
 
     print("Server listening on Port " + str(WEBSOCKET_PORT))
 

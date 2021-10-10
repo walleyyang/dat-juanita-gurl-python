@@ -10,3 +10,5 @@ MESSAGE_TYPE_FLOW = 'FLOW'
 # Sentiment
 SENTIMENT_BULLISH = 'BULLISH'
 SENTIMENT_BEARISH = 'BEARISH'
+
+NO_NEWS = 'DatJuanitaGurl could not find any news or there was an issue retrieving the news'

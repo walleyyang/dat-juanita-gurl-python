@@ -13,6 +13,7 @@ services:
       - 'CHANNEL_ID_GOLDEN_SWEEP:$CHANNEL_ID_GOLDEN_SWEEP'
       - 'WEBSOCKET_URL:$WEBSOCKET_URL'
       - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
+      - 'FAT_VAMP:$FAT_VAMP'
 
   badbug:
     image: datjuanitagurl/bad-bug:latest

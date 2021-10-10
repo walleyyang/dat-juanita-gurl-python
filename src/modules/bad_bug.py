@@ -19,7 +19,7 @@ def handle_message(message):
         'embed_title': embed_title,
         'embed_color': get_embed_color(message),
         'embed_fields':  embed_fields,
-        'embed_footer': get_embed_footer(message)
+        'embed_footer': get_embed_footer(message, message_type)
     }
 
 
@@ -131,14 +131,30 @@ def get_alerts_embed_fields(message):
     ]
 
 
-def get_embed_footer(message):
+def get_embed_footer(message, message_type):
+    bullish = 'Bullish Flow'
+    bearish = 'Bearish Flow'
+    poss_close_sell_text = 'Possible Closing or Selling'
+
     if(message['sentiment'] == constants.SENTIMENT_BULLISH):
+        text = bullish
+
+        if (message_type != constants.MESSAGE_TYPE_ALERT):
+            if 'B' in message['details']:
+                text = f'{bullish} | {poss_close_sell_text}'
+
         return {
             'icon_url': 'https://i.imgur.com/GobRl44.png',
-            'text': 'Bullish'
+            'text': text
         }
     else:
+        text = bearish
+
+        if (message_type != constants.MESSAGE_TYPE_ALERT):
+            if 'B' in message['details']:
+                text = f'{bearish} | {poss_close_sell_text}'
+
         return {
             'icon_url': 'https://i.imgur.com/OWXP4Yv.png',
-            'text': 'Bearish'
+            'text': text
         }

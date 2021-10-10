@@ -9,6 +9,8 @@ CHANNEL_ID_ALERTS=123
 CHANNEL_ID_FLOW=123
 CHANNEL_ID_GOLDEN_SWEEP=123
 
+FAT_VAMP=https://duckduckgo.com
+
 #### Bad-Bug ####
 MODE=PROD
 BAD_BUG=https://duckduckgo.com
