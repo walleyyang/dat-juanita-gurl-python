@@ -1,6 +1,7 @@
 #### Multiple ####
-WEBSOCKET_URL=localhost # datjuanitagurl Should be service name when running in docker compose. 
-WEBSOCKET_PORT=123
+WEBSOCKET_URL=localhost
+#WEBSOCKET_URL=datjuanitagurl # Docker
+WEBSOCKET_PORT=8080
 
 #### DatJuanitaGurl ####
 BOT_TOKEN=123
@@ -10,6 +11,14 @@ CHANNEL_ID_FLOW=123
 CHANNEL_ID_GOLDEN_SWEEP=123
 
 FAT_VAMP=https://duckduckgo.com
+
+#### MONGO DB ####
+MONGO=localhost
+#MONGO=mongo # Docker
+MONGO_PORT=27017
+MONGO_INITDB_ROOT_USERNAME=admin
+MONGO_INITDB_ROOT_PASSWORD=password
+MONGO_INITDB_DATABASE=admin
 
 #### Bad-Bug ####
 MODE=PROD

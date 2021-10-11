@@ -14,7 +14,21 @@ services:
       - 'WEBSOCKET_URL:$WEBSOCKET_URL'
       - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
       - 'FAT_VAMP:$FAT_VAMP'
-
+  mongo:
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+    volumes:
+      # MongoDB errors next start without named volume
+      - db-data:/data/db
+    environment:
+      - 'MONGO=$MONGO'
+      - 'MONGO_PORT=$MONGO_PORT'
+      - 'MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_USERNAME'
+      - 'MONGO_INITDB_ROOT_PASSWORD:$MONGO_INITDB_ROOT_PASSWORD'
+      - 'MONGO_INITDB_DATABASE:$MONGO_INITDB_DATABASE'
   badbug:
     image: datjuanitagurl/bad-bug:latest
     ports:
@@ -37,3 +51,6 @@ services:
       - 'WEBSOCKET_PORT:$WEBSOCKET_PORT'
     depends_on:
       - datjuanitagurl
+      - mongo
+volumes:
+  db-data:
