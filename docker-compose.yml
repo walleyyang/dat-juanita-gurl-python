@@ -26,6 +26,7 @@ services:
     environment:
       - 'MONGO=$MONGO'
       - 'MONGO_PORT=$MONGO_PORT'
+      - 'MONGO_COLLECTION=$MONGO_COLLECTION'
       - 'MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_USERNAME'
       - 'MONGO_INITDB_ROOT_PASSWORD:$MONGO_INITDB_ROOT_PASSWORD'
       - 'MONGO_INITDB_DATABASE:$MONGO_INITDB_DATABASE'
@@ -52,5 +53,24 @@ services:
     depends_on:
       - datjuanitagurl
       - mongo
+  # secretcharts:
+  #   image: datjuanitagurl/secret-charts:latest
+  #   ports:
+  #     - 3001
+  #     - 3002
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - c:/images/:/app/images
+  #   environment:
+  #     - 'SECRET_CHARTS:$SECRET_CHARTS'
+  #     - 'PORT:$PORT'
+  #     - 'SECRET_CHARTS_SERVER_PORT:$SECRET_CHARTS_SERVER_PORT'
+  #     - 'SECRET_CHARTS_CONTANER_IMAGE_LOCATION:$SECRET_CHARTS_CONTANER_IMAGE_LOCATION'
+  #     - 'SECRET_CHARTS_MOUNT_IMAGE_LOCATION:$SECRET_CHARTS_MOUNT_IMAGE_LOCATION'
+  #   depends_on:
+  #     - datjuanitagurl
+  #     - badbug
+  #     - mongo
 volumes:
   db-data:

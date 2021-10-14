@@ -1,4 +1,5 @@
 import asyncio
+from discord import client
 import websockets
 import json
 import discord
@@ -9,21 +10,64 @@ from os import getenv
 import constants
 from modules import bad_bug, fat_vamp
 
+connected = set()
+
 
 async def handler(websocket, path):
     print("A client connected")
+    connected.add(websocket)
 
     try:
         async for message in websocket:
-            await handle_message(json.loads(message))
+            client_message = json.loads(message)
+
+            if client_message['messageType'] != constants.MESSAGE_TYPE_IMAGE:
+                bad_bug_message = bad_bug.handle_message(client_message)
+
+                for conn in connected:
+                    # Send message to clients, but not self
+                    # Sends symbol so client knows charts to create
+                    if conn != websocket:
+                        image_message = {
+                            'symbol': client_message['symbol'],
+                            'channel': bad_bug_message['channel']
+                        }
+
+                        await conn.send(json.dumps(image_message))
+
+                await handle_message(bad_bug_message, client_message)
+            else:
+                await handle_image_message(client_message)
 
     except websockets.exceptions.ConnectionClosed as e:
         print("Client disconnected")
+        connected.remove(websocket)
         print(e)
 
 
-async def handle_message(message):
-    bad_bug_message = bad_bug.handle_message(message)
+async def handle_image_message(message):
+    file_name = message['fileName']
+    channel = message['channel']
+
+    file = discord.File(
+        message['imageLocation'], filename=file_name)
+
+    embed = discord.Embed(
+        title=message['symbol'],
+        color=0x1F407D
+    )
+
+    embed.set_image(url=f'attachment://{file_name}')
+
+    if(channel == constants.CHANNEL_NAME_FLOW):
+        await discord_client.get_channel(CHANNEL_ID_FLOW).send(file=file, embed=embed)
+    elif(channel == constants.CHANNEL_NAME_GOLDEN_SWEEPS):
+        await discord_client.get_channel(CHANNEL_ID_GOLDEN_SWEEP).send(file=file, embed=embed)
+    else:
+        await discord_client.get_channel(CHANNEL_ID_ALERTS).send(file=file, embed=embed)
+
+
+async def handle_message(bad_bug_message, message):
     news = get_news(bad_bug.get_symbol(message))
     embed = get_embed(bad_bug_message, news)
     await send_message(bad_bug_message['channel'], embed)
