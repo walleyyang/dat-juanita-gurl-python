@@ -15,6 +15,7 @@ You can also build the Docker image. For example, run `docker build . -t datjuan
 ## Full Application Usage
 
 Clone and build `https://github.com/walleyyang/bad-bug`
+Clone and build `https://github.com/walleyyang/secret-charts`
 
 Requires all the environment variables in `.envexample` in a new `.env`.
 
