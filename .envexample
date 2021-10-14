@@ -45,10 +45,11 @@ OWL_FILTER_AA='helloworld'
 OWL_FILTER_AAA='helloworld'
 
 #### SECRET CHARTS ####
-SECRET_CHARTS=http://localhost
+# REACT_APP needed for dotenv in react app
+REACT_APP_SECRET_CHARTS=http://localhost
 # React needed PORT 
 PORT=3001
-SECRET_CHARTS_SERVER_PORT=3002
+REACT_APP_SECRET_CHARTS_SERVER_PORT=3002
 SECRET_CHARTS_IMAGE_LOCATION='/app/images/'
 # Dev without Docker
-# SECRET_CHARTS_IMAGE_LOCATION='C:/images/'
+# REACT_APP_SECRET_CHARTS_IMAGE_LOCATION='C:/images/'
